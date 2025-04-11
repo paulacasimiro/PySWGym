@@ -1,0 +1,237 @@
+:root {
+    /* Tema Claro (default) */
+    --plan-bg: #ffffff;
+    --plan-text: #333333;
+    --plan-border: #e0e0e0;
+    --plan-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --plan-hover-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --plan-accent: #133E87;
+    --plan-accent-text: #ffffff;
+    --plan-secondary-text: #666666;
+
+    --switch-bg: #ccc;
+    --switch-thumb: white;
+    --switch-active: #27548A;
+}
+
+.dark-mode {
+    /* Tema Oscuro */
+    --plan-bg: #1e1e1e;
+    --plan-text: #f5f5f5;
+    --plan-border: #333333;
+    --plan-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    --plan-hover-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    --plan-accent: #0A5EB0;
+    --plan-accent-text: #121212;
+    --plan-secondary-text: #aaaaaa;
+
+    --switch-bg: #555;
+    --switch-thumb: #f5f5f5;
+    --switch-active: #0A5EB0;
+}
+
+.contenedor {
+    max-width: 1000px;
+    margin: 40px 0;
+}
+
+h1 {
+    text-align: center;
+    color: var(--plan-text);
+}
+
+/* Selector de plan */
+.selector-plan {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+    font-weight: bold;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin: 0 10px;
+    background: var(--plan-secondary-text);
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--switch-bg);
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background: var(--switch-thumb);
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background: var(--switch-active);
+}
+
+input:checked+.slider:before {
+    transform: translateX(26px);
+}
+
+.ahorro {
+    color: var(--plan-accent);
+    font-size: 0.8em;
+}
+
+/* Planes */
+.planes {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.plan {
+    background: var(--plan-bg);
+    color: var(--plan-text);
+    border-radius: 8px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: var(--plan-shadow);
+    position: relative;
+    transition: transform 0.3s;
+    border: 1px solid var(--plan-border);
+}
+
+.plan:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--plan-hover-shadow);
+}
+
+.recomendado {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background: var(--plan-accent);
+    color: var(--plan-accent-text);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+}
+
+h2 {
+    color: var(--plan-text);
+    text-align: center;
+    margin-top: 0;
+}
+
+.precio {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    margin: 15px 0;
+    color: var(--plan-accent);
+}
+
+.anual {
+    display: none;
+}
+
+body.plan-anual .mensual {
+    display: none;
+}
+
+body.plan-anual .anual {
+    display: block;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 5px 0;
+    color: var(--plan-secondary-text);
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: var(--plan-accent);
+    color: var(--plan-accent-text);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-destacado {
+    background: var(--plan-accent);
+}
+
+/* Tooltips */
+.info {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: var(--plan-secondary-text);
+    color: var(--plan-bg);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 16px;
+    font-size: 12px;
+    cursor: help;
+    margin-left: 5px;
+}
+
+.tooltip {
+    visibility: hidden;
+    width: 150px;
+    background: var(--plan-text);
+    color: var(--plan-bg);
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    margin-top: -30px;
+    margin-left: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+li:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .planes {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .plan {
+        width: 80%;
+    }
+}

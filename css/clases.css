@@ -1,0 +1,272 @@
+/* 
+SISTEMA DE FILTRADO
+Se utiliza un sistema de radio buttons ocultos para manejar el estado
+*/
+.filter-system {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Radio buttons ocultos visualmente pero accesibles */
+.filter-radio {
+    position: absolute;
+    opacity: 0;
+}
+
+/* 
+CONTROLES DE FILTRADO
+Diseño de interactivas con:
+Feedback visual al hover
+Efectos de transición
+Diseño responsive
+ */
+.filter-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.filter-controls label {
+    padding: 0.8rem 2rem;
+    background: #27548A;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 0.3rem;
+}
+
+/* Efecto hover con elevación y cambio de color */
+.filter-controls label:hover {
+    background: #00224D;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.filter-controls label {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Estilos para opciones seleccionadas */
+#musculacion:checked~.filter-controls label[for="musculacion"] {
+    background: #4CAF50;
+}
+
+#crossfit:checked~.filter-controls label[for="crossfit"] {
+    background: #FF5722;
+}
+
+#yoga:checked~.filter-controls label[for="yoga"] {
+    background: #9C27B0;
+}
+
+#spinning:checked~.filter-controls label[for="spinning"] {
+    background: #2196F3;
+}
+
+/*
+GALERÍA MASONRY ADAPTATIVA
+CSS Grid para el layout base
+grid-auto-rows con span variable para el efecto masonry
+Transiciones para cambios de filtro
+Diseño responsive
+*/
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-auto-rows: 1px;
+    column-gap: 10px;
+    row-gap: 1px;
+    padding: 15px 25px;
+}
+
+.masonry-item {
+    grid-row-end: span var(--row-span);
+    transition: all 0.3s ease;
+    margin-bottom: 25px;
+}
+
+/* Clases de altura para variedad visual */
+.masonry-item.small {
+    --row-span: 100;
+}
+.masonry-item.medium {
+    --row-span: 150;
+}
+.masonry-item.large {
+    --row-span: 220;
+}
+
+/* 
+LÓGICA DE FILTRADO
+Se usa la técnica de hermanos generales (~) para:
+Mostrar/ocultar elementos según filtro seleccionado
+Aplicar animación al cambiar filtros
+*/
+#all:checked~.gallery-container .masonry-item {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+/* Ocultar elementos que no coincidan con el filtro */
+#musculacion:checked~.gallery-container .masonry-item:not(.musculacion),
+#crossfit:checked~.gallery-container .masonry-item:not(.crossfit),
+#yoga:checked~.gallery-container .masonry-item:not(.yoga),
+#spinning:checked~.gallery-container .masonry-item:not(.spinning) {
+    display: none;
+}
+
+/* 
+TARJETAS DE CLASE
+Efecto hover con zoom suave
+Overlay informativo que aparece al interactuar
+*/
+.class-card {
+    position: relative;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+/* Efecto hover */
+.class-card:hover .card-image {
+    transform: scale(1.05);
+}
+
+/* Overlay informativo */
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(39, 84, 138, 0.9), transparent);
+    color: white;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.class-card:hover .card-overlay {
+    opacity: 1;
+}
+
+/* Animación para cambios de filtro */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsiva */
+@media (max-width: 768px) {
+    .filter-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .gallery-container {
+        grid-template-columns: 1fr;
+    }
+
+    .masonry-item.small {
+        --row-span: 80;
+    }
+
+    .masonry-item.medium {
+        --row-span: 120;
+    }
+
+    .masonry-item.large {
+        --row-span: 160;
+    }
+}
+
+/* 
+TABLA DE HORARIOS RESPONSIVA
+*/
+.schedule {
+    padding: 2rem;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background: #27548A;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+/* Responsiva */
+@media (max-width: 768px) {
+    table {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+    }
+
+    td {
+        display: block;
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 12px;
+        font-weight: bold;
+    }
+
+    td:first-child {
+        background: #27548A;
+        color: white;
+        text-align: center;
+        padding-left: 12px;
+    }
+
+    td:first-child::before {
+        display: none;
+    }
+}
